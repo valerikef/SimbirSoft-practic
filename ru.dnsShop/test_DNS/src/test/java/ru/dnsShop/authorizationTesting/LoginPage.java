@@ -2,58 +2,44 @@ package ru.dnsShop.authorizationTesting;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
-public class LoginPage {
+public class LoginPage implements List{
 
-    private WebDriver chromeDriver;
-
-    private WebElement sameWebElement;
+    private final WebDriver chromeDriver;
 
     public LoginPage(WebDriver chromeDriver){
         this.chromeDriver = chromeDriver;
     }
 
-    private By loginButtonLocator = By.cssSelector(".form-entry-with-password__main-button");
-
-
-
-    public void setUsername(String username) {
+    public LoginPage inputUsername(String username) {
         chromeDriver.findElement(getUsernameLocator()).sendKeys(username);
+        return this;
     }
 
-    public void setPassword(String password) {
+    public LoginPage inputPassword(String password) {
         chromeDriver.findElement(getPasswordLocator()).sendKeys(password);
+        return this;
     }
 
     public void clickSignInButton() {
         chromeDriver.findElement(loginButtonLocator).click();
     }
 
-    public void openPopupWindow(){
-        //определение всплывающего окна
-        chromeDriver.findElement(By.cssSelector(".user-profile__login")).click();
+    public LoginPage openPopupWindow(){
+        chromeDriver.findElement(popupWindowButtonLocator).click();
+        chromeDriver.findElement(loginButtonInPopupWindow).click();
+        chromeDriver.findElement(loginButtonWithPasswordInPopupWindow).click();
 
-        //определение кнопки "Войти" в всплывающем окне
-        chromeDriver.findElement(By.cssSelector(".user-profile__wrapper .base-ui-button-v2_brand")).click();
-
-        //определение кнопки "Войти с паролем" в всплывающем окне
-        chromeDriver.findElement(By.cssSelector(".base-button-container.base-button-container_blue")).click();
+        return this;
     }
 
     private By getUsernameLocator() {
-        chromeDriver.findElement(By.className("form-entry-with-password__input")).click();
-
-        sameWebElement = chromeDriver.findElements(By.className("base-ui-input-row__label")).get(0);
-
-        return By.id(sameWebElement.getAttribute("for"));
+        chromeDriver.findElement(loginFieldLocator).click();
+        return By.id(chromeDriver.findElement(getIdLoginFieldLocator).getAttribute("for"));
     }
 
     private By getPasswordLocator() {
-        chromeDriver.findElement(By.className("form-entry-with-password__password")).click();
-
-        sameWebElement = chromeDriver.findElements(By.className("base-ui-input-row__label")).get(1);
-
-        return By.id(sameWebElement.getAttribute("for"));
+        chromeDriver.findElement(passwordFieldLocator).click();
+        return By.id(chromeDriver.findElement(getIdPasswordFieldLocator).getAttribute("for"));
     }
 }

@@ -17,21 +17,16 @@ public class LoginTest extends ChromeDriverSettings {
      * тестовый метод для осуществления аутентификации
      */
     @Test
-    public void FirstloginTest() {
-        //получение доступа к методам класса LoginPage и ProfilePage для взаимодействия с элементами страницы
+    public void loginTest() {
+
         loginPage = new LoginPage(chromeDriver);
         profilePage = new ProfilePage(chromeDriver);
-        //открываем всплывающее окно для ввода логина и пароля
-        loginPage.openPopupWindow();
-        //вводим логин
-        loginPage.setUsername(USERNAME);
-        //вводим пароль
-        loginPage.setPassword(PASSWORD);
-        //нажимаем кнопку входа
-        loginPage.clickSignInButton();
-        //получаем отображаемый логин
-        String usernameInProfile = profilePage.getUserName();
-        //сравниваем его с логином из файла настроек
-        Assert.assertEquals(toUpperCase(USERNAME), toUpperCase(usernameInProfile));
+
+        loginPage.openPopupWindow()
+                .inputUsername(USERNAME)
+                .inputPassword(PASSWORD)
+                .clickSignInButton();
+
+        Assert.assertEquals(toUpperCase(USERNAME), toUpperCase(profilePage.getUserName()));
     }
 }
