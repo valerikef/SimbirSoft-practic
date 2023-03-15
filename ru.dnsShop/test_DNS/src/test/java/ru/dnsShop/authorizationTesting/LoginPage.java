@@ -3,7 +3,7 @@ package ru.dnsShop.authorizationTesting;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage implements List{
+public class LoginPage implements cssLocatorsList{
 
     private final WebDriver chromeDriver;
 
@@ -22,24 +22,24 @@ public class LoginPage implements List{
     }
 
     public void clickSignInButton() {
-        chromeDriver.findElement(loginButtonLocator).click();
+        chromeDriver.findElement(By.cssSelector(loginButtonLocator)).click();
     }
 
     public LoginPage openPopupWindow(){
-        chromeDriver.findElement(popupWindowButtonLocator).click();
-        chromeDriver.findElement(loginButtonInPopupWindow).click();
-        chromeDriver.findElement(loginButtonWithPasswordInPopupWindow).click();
+        chromeDriver.findElement(By.cssSelector(popupWindowButtonLocator)).click();
+        chromeDriver.findElement(By.cssSelector(loginButtonInPopupWindow)).click();
+        chromeDriver.findElement(By.cssSelector(loginButtonWithPasswordInPopupWindow)).click();
 
         return this;
     }
 
     private By getUsernameLocator() {
-        chromeDriver.findElement(loginFieldLocator).click();
-        return By.id(chromeDriver.findElement(getIdLoginFieldLocator).getAttribute("for"));
+        chromeDriver.findElement(By.cssSelector(loginFieldLocator)).click();
+        return By.id(chromeDriver.findElement(By.cssSelector(getIdLoginFieldLocator)).getAttribute("for"));
     }
 
     private By getPasswordLocator() {
-        chromeDriver.findElement(passwordFieldLocator).click();
-        return By.id(chromeDriver.findElement(getIdPasswordFieldLocator).getAttribute("for"));
+        chromeDriver.findElement(By.cssSelector(passwordFieldLocator)).click();
+        return By.id(chromeDriver.findElement(By.cssSelector(getIdPasswordFieldLocator)).getAttribute("for"));
     }
 }

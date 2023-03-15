@@ -6,13 +6,9 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class ProfilePage {
-    /**
-     * конструктор класса, занимающийся инициализацией полей класса
-     */
-    private WebDriver chromeDriver;
+public class ProfilePage implements cssLocatorsList{
 
-    private final By usernameLocator = By.cssSelector(".input-row__input_valid[type = 'email']");
+    private WebDriver chromeDriver;
 
     public ProfilePage(WebDriver chromeDriver){
         this.chromeDriver = chromeDriver;
@@ -29,6 +25,6 @@ public class ProfilePage {
 
     public String getUserName() {
         openProfileDNS();
-        return chromeDriver.findElement(usernameLocator).getAttribute("value");
+        return chromeDriver.findElement(By.cssSelector(usernameLocator)).getAttribute("value");
     }
 }
